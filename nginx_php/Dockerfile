@@ -5,7 +5,10 @@ WORKDIR /www
 
 RUN \
   apk update && \
-  apk add nginx php7 php7-fpm
+  apk add nginx && \
+  apk add php7 php7-fpm php7-openssl php7-pdo php7-pdo_mysql php7-common php7-fileinfo php7-mbstring php7-session php7-json php7-curl
+ 
+
   
 #php7-fpm 对应指令php-fpm7
 #RUN mkdir /run/php && chown nginx /run/php
