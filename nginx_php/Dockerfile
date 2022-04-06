@@ -12,8 +12,8 @@ COPY src/default.conf /etc/nginx/http.d/default.conf
 COPY src/php/www.conf /etc/php7/php-fpm.d/www.conf
 COPY src/index.html ./
 COPY src/info.php ./
-COPY start.sh ~/start.sh
-RUN chmod +x ~/start.sh
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
@@ -29,7 +29,7 @@ VOLUME ["/etc/nginx/http.d", "/www", "/var/log/nginx"]
 EXPOSE 80
 
 
-CMD ~/start.sh
+CMD /entrypoint.sh
 
 
 
