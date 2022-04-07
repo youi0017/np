@@ -29,7 +29,7 @@ VOLUME ["/etc/nginx/http.d", "/www", "/var/log/nginx"]
 EXPOSE 80
 
 
-CMD /entrypoint.sh
-
+# CMD /entrypoint.sh
+ENTRYPOINT [ "/entrypoint.sh" ]
 
 
