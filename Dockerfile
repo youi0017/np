@@ -15,6 +15,12 @@ COPY src/info.php ./
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
+#add php-swoole
+COPY src/php/swoole488.so /usr/lib/php7/modules/swoole.so
+
+RUN touch /etc/php7/conf.d/swoole.ini && \
+    echo 'extension=swoole.so' > /etc/php7/conf.d/swoole.ini
+
 
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
@@ -31,5 +37,6 @@ EXPOSE 80
 
 # CMD /entrypoint.sh
 ENTRYPOINT [ "/entrypoint.sh" ]
+
 
 
