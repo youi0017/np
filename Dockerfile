@@ -5,7 +5,8 @@ WORKDIR /www
 RUN \
   apk update && \
   apk add nginx && \
-  apk add php7 php7-fpm php7-openssl php7-pdo php7-pdo_mysql php7-common php7-fileinfo php7-mbstring php7-session php7-json php7-curl
+  apk add php7 php7-fpm php7-openssl php7-pdo php7-pdo_mysql php7-common php7-fileinfo php7-mbstring php7-session php7-json php7-curl && \
+  apk add libstdc++
   
 
 COPY src/default.conf /etc/nginx/http.d/default.conf
@@ -15,11 +16,16 @@ COPY src/info.php ./
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
+COPY src/php/http.php ./
+COPY src/php/websocket.php ./
+COPY src/php/tcp.php ./
+COPY src/php/udp.php ./
+
 #add php-swoole
-COPY src/php/swoole488.so /usr/lib/php7/modules/swoole.so
+COPY src/php/swoole488.so /usr/lib/php7/modules/20.swoole488.so
 
 RUN touch /etc/php7/conf.d/swoole.ini && \
-    echo 'extension=swoole.so' > /etc/php7/conf.d/swoole.ini
+    echo 'extension=20.swoole488.so' > /etc/php7/conf.d/swoole.ini
 
 
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
